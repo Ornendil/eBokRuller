@@ -8,32 +8,14 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="js/jquery.mobile-events.js"></script>
     <script src="js/scripts.js"></script>
-<?php
-function get_string_between($string, $start, $end){
-    $string = " ".$string;
-    $ini = strpos($string,$start);
-    if ($ini == 0) return "";
-    $ini += strlen($start);
-    $len = strpos($string,$end,$ini) - $ini;
-    return substr($string,$ini,$len);
-}
-
-function is_empty($string, $start, $end){
-    $string = " ".$string;
-    $ini = strpos($string,$start);
-    if ($ini == 0) return "";
-    $ini += strlen($start);
-    $len = strpos($string,$end,$ini) - $ini;
-    return substr($string,$ini,$len);
-}
-?>
+    <?php include 'functions.php'; ?>
 </head>
 <body>
 <?php
 
 // Innstillinger
 
-$bibliotek = 'ullensaker';
+$bibliotek = 'ullensaker'; // Bruk biblioteknavnet sånn det opptrer i linken http://www._____.folkebibl.no
 $ccl = 'ff=la';
 
 // CCL-eksempler
@@ -60,9 +42,9 @@ $items = $rssxml->xpath('//item');
 
     $krydderbeskrivelse = $item->xpath('b:krydderbeskrivelse');
     $description = $item->description;
-    if (!isset($krydderbeskrivelse[0]) || $krydderbeskrivelse[0] != '&nbsp;') {
+    if ($krydderbeskrivelse[0] != '&nbsp;') { // Hvis krydderbeskrivelsen inneholder mer enn bare et 'nbsp', bruk den
         $beskrivelse = $krydderbeskrivelse[0];
-    } else { 
+    } else { // Hvis krydderbeskrivelsen er tom, bruk denne, noe hackete, koden for å hente ut beskrivelsen fra <description>
         $beskrivelse = get_string_between($description, 'Sidetallet er hentet fra trykt utg.', '    ISBN ');
         $beskrivelse = trim($beskrivelse);
         $beskrivelse = explode("\n",$beskrivelse );
@@ -84,7 +66,7 @@ $items = $rssxml->xpath('//item');
     $titnr = $item->xpath('b:titnr');
     $pubdate = $item->pubdate;
 
-    if (isset($krydderbilde[0]) and !empty($beskrivelse) ) {
+    if (isset($krydderbilde[0]) and !empty($beskrivelse) ) { // Hvis både bilde og beskrivelse er på plass, ta med boka
 
  ?>
 
