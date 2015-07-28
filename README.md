@@ -15,8 +15,8 @@ Only works for norwegian libraries using Bibliofil.
 2. Change the following settings in `index.php`
 
  ```php
- $bibliotek = 'DITT_BIBLIOTEK'; // as it appears in www._____.folkebibl.no
- $ccl = 'ff=la';
+ 18 $bibliotek = 'DITT_BIBLIOTEK'; // as it appears in www._____.folkebibl.no
+ 19 $ccl = 'ff=la';
  ```
  
  The CCL can be anything. The above is eBooks. I originally made this thing for eBooks, but if you want to 
