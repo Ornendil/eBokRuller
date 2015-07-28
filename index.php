@@ -15,7 +15,7 @@
 
 // Innstillinger
 
-$bibliotek = 'ullensaker'; // Bruk biblioteknavnet sånn det opptrer i linken http://www._____.folkebibl.no
+$bibliotek = 'YOUR_LIBRARY'; // Bruk biblioteknavnet sånn det opptrer i linken http://www._____.folkebibl.no
 $ccl = 'ff=la';
 
 // CCL-eksempler
