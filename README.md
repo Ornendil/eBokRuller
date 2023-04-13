@@ -6,7 +6,6 @@ Only works for norwegian libraries using Bibliofil.
 
 ## Requirements
 * [Bibliofil](http://bibliofil.no/)
-* [jQuery Mobile Events](https://github.com/benmajor/jQuery-Touch-Events)
 * A public access display with a touch screen. Like an iPad in kiosk mode on a stand or something
 
 ## Setup
