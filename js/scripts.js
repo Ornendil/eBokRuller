@@ -1,36 +1,56 @@
-var counter = 20000; // 20 sekunder
+let counter = shortCounter;
 
-$.fn.nextSlide = function() { // Funksjon for å gå til neste bok
-    this.fadeOut(1000).next().fadeIn(1000).end().appendTo('body');
-    $("html, body").animate({ scrollTop: 0 }, "slow"); // Scroll til toppen når vi går til neste bok
-};
+function nextSlide() {
+    let slides = document.querySelectorAll('.item');
+    let activeSlide = "";
+    let nextSlide = "";
+    for (let i = 0; i < slides.length; i++){
+        if (slides[i].matches('.active')){
+            activeSlide = slides[i];
+            if (i == slides.length - 1){
+                nextSlide = slides[0];
+            } else {
+                nextSlide = slides[i + 1];
+            }
+            break;
+        }
+    }
+    activeSlide.classList.remove('active');
+    nextSlide.classList.add('active');
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });      
+}
+
 function setResetInterval(bool) {
     if(bool) {
-        timer = setInterval(function() {$('body > article:first').nextSlide();}, counter);
+        timer = setInterval(function() {
+            nextSlide();
+        }, counter);
     } else {
         clearInterval(timer);
     }
 };
 
-$(window).scroll(function() { // Lengre tid på seg til å lese hvis brukeren har scrollet ned til krydderbeskrivelsen
-    var windowtop = $(window).scrollTop() + ($(window).height() / 3);
-    var reviewtop = $( " .review" ).offset().top;
+window.addEventListener('scroll', () => { // Lengre tid på seg til å lese hvis brukeren har scrollet ned til krydderbeskrivelsen
+    let windowtop = window.pageYOffset + (window.innerHeight / 3);
+    let reviewtop = document.querySelector(".review").getBoundingClientRect().top + window.pageYOffset;
+
     if ( reviewtop  <= windowtop  ) {
         setResetInterval(false);
-        counter = 40000; // 40 sekunder
+        counter = longCounter;
         setResetInterval(true);
     } else {
         setResetInterval(false);
-        counter = 20000; // 20 sekunder
+        counter = shortCounter;
         setResetInterval(true);
     }
 });
 
-$(document).ready(function(){ // Når siden er ferdig lastet
-    $("body > article").hide(); // Gjem alle bøkene
-    $("body > article:first").fadeIn(1000); // Fade inn den første boka
-    $(function() {setResetInterval(true);}); // Start "karusellen"
-});
-$(document).on("swipeleft",function() { // Gå til neste slide når det swipes mot venstre
-    $('body > article:first').nextSlide();
+document.querySelector(".item:first-of-type").classList.add('active'); // Fade inn den første boka
+setResetInterval(true); // Start "karusellen"
+
+document.addEventListener('swipeleft', () => { // Gå til neste slide når det swipes mot venstre
+    nextSlide();
 });

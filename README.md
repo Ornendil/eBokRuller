@@ -15,12 +15,11 @@ Only works for norwegian libraries using Bibliofil.
 2. Change the following settings in `index.php`
 
  ```php
- 18 $bibliotek = 'DITT_BIBLIOTEK'; // as it appears in www._____.folkebibl.no
- 19 $ccl = 'ff=la';
+ $bibliotek = 'DITT_BIBLIOTEK'; // as it appears in https://_____.bib.no
+ $ccl = 'ff=la';
  ```
  
- The CCL can be anything. The above is eBooks. I originally made this thing for eBooks, but if you want to 
-use it for something else, just change the CCL.
+ The CCL can be anything. The above is eBooks. I originally made this thing for eBooks, but if you want to use it for something else, just change the CCL.
 
  ### Some example CCLs
 
@@ -38,4 +37,9 @@ use it for something else, just change the CCL.
 ## Additional options
 
 The display currently displays each book for 20 seconds (and increases this to 40 if the user has scrolled 
-down to read the book description. These values can be edited in `js/scripts.js` (lines 1, 20 and 24)
+down to read the book description. These values can be edited in `index.php`
+
+ ```javascript
+let shortCounter = 20000,
+    longCounter = 40000;
+ ```

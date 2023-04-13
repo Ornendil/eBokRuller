@@ -4,32 +4,31 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
     <title>Nye e-bøker på biblioteket</title>
-    <link href='css/style.css' rel='stylesheet' type='text/css'> 
+    <link href='css/style.min.css' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.css" /> 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script src="js/jquery.mobile-events.js"></script>
-    <script src="js/scripts.js"></script>
-    <?php include 'functions.php'; ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquerymobile/1.4.5/jquery.mobile.min.js"></script>
 </head>
 <body>
 <?php
 
-// Innstillinger
+include 'functions.php';
 
-$bibliotek = 'YOUR_LIBRARY'; // Bruk biblioteknavnet sånn det opptrer i linken http://www._____.folkebibl.no
-$ccl = 'ff=la';
+// Innstillinger
+$bibliotek = 'YOUR_LIBRARY'; // Bruk biblioteknavnet sånn det opptrer i linken https://_____.bib.no
+$ccl = 'ff=l';
 
 // CCL-eksempler
 // 'ff=la og ag=mu' E-bøker for ungdom
 // 'plass=dark romance' Dark romance
 
 
-$rssurl = 'http://www.'. $bibliotek .'.folkebibl.no/cgi-bin/rss?bibxml=1&ccl='.urlencode($ccl);
+$rssurl = 'https://'. $bibliotek .'.bib.no/cgi-bin/rss?bibxml=1&ccl='.urlencode($ccl);
 $rssxml = simplexml_load_file($rssurl);
 $rssxml->registerXPathNamespace('b', 'http://bibliofil.no/rss-xml-v1.2/');
 $items = $rssxml->xpath('//item');
-?>
 
-<?php foreach ($items as $item) {
+foreach ($items as $item) {
     $item->registerXPathNamespace('b', 'http://bibliofil.no/rss-xml-v1.2/');
 
     $ordord = $item->xpath('b:ordord');
@@ -85,9 +84,18 @@ $items = $rssxml->xpath('//item');
         </section>
     </article>
 
-<?php } else { echo '<!--'. $tittel[0] .' mangler bilde eller beskrivelse.-->';}; ?>
+<?php
 
-<?php } ?>
+    } else {
+        echo '<!--'. $tittel[0] .' mangler bilde eller beskrivelse.-->';
+    }
+}
+?>
+    <script>
+        let shortCounter = 20000,
+            longCounter = 40000;
+    </script>
+    <script src="js/scripts.min.js"></script>
 
 </body>
 </html>
