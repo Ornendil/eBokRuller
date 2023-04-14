@@ -40,5 +40,5 @@ down to read the book description. These values can be edited in `index.php`
 
  ```javascript
 let shortCounter = 20000,
-    longCounter = 40000;
+     longCounter = 40000;
  ```
